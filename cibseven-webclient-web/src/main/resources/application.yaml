@@ -3,7 +3,7 @@ spring:
     location: classpath:banner.txt
   config:
     import:
-      - optional:classpath:cibseven-webclient.properties
+      - optional:file:/opt/camunda/server/wildfly-37.0.0.Final/standalone/configuration/cibseven-webclient.properties
       - optional:classpath:cibseven-webclient.yaml
   servlet:
     register-default-servlet: true
@@ -14,16 +14,18 @@ spring:
       max-request-size: 1GB
 
 cibseven:
+  engine:
+    name:
   webclient:
     # Global enable/disable flag for the entire CIB seven webclient
     enabled: true
     # Engine rest
     engineRest:
-      url: http://localhost:8080
+      url:
       # Configurable path for the engine REST API (default: /engine-rest)
       # This allows customization for different Jersey application paths
       # Example: path: /different-path
-      path: /engine-rest
+      path: /rest
     historyLevel: full
     # Token generation
     authentication:
@@ -45,7 +47,8 @@ cibseven:
 
     # User providers
     user:
-      provider: org.cibseven.webapp.auth.SevenUserProvider
+      #provider: org.cibseven.webapp.auth.SevenUserProvider
+      provider: org.cibseven.webapp.auth.SpotUserProvider
       # provider: org.cibseven.webapp.auth.LdapUserProvider
       # provider: org.cibseven.webapp.auth.KeycloakUserProvider
       # provider: org.cibseven.webapp.auth.AdfsUserProvider
